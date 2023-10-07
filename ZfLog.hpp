@@ -125,13 +125,13 @@ namespace ZfLog
 
 enum Severity
 {
-    NONE = 0,
-    FATAL = 1,
-    ERROR = 2,
+    NONE    = 0,
+    FATAL   = 1,
+    ERROR   = 2,
     WARNING = 3,
-    INFO = 4,
-    DEBUG = 5,
-    VERBOSE = 6, 
+    INFO    = 4,
+    DEBUG   = 5,
+    VERBOSE = 6,
 };
 
 inline const char* severityToString(Severity s)
@@ -152,8 +152,6 @@ inline const char* severityToString(Severity s)
 class Logger
 {
 public:
-    /* Constructors / Destructors */
-
     Logger(const Severity& s, const char* fileName, const int lineNum)
         : m_severity(s)
         , m_fileName(fileName)
@@ -174,8 +172,6 @@ public:
         }
     }
 
-    /* Insertion operator overload */
-
     template <typename T>
     Logger& operator<<(const T& value)
     {
@@ -184,21 +180,12 @@ public:
     }
 
 private:
-    /* Private member data */
-
-    Severity m_severity;
-    const char* m_fileName;
-    const int m_lineNum;
-    std::ostringstream m_osstream;
-
-    /* Print status element functions */
-
     void printStatusElements()
     {
         if (NONE_SIMPLE_LOG && m_severity == NONE) return;
-        if (DISPLAY_TIMESTAMP)  displayTimestamp();
-        if (DISPLAY_SEVERITY)   displaySeverity();
-        if (DISPLAY_LOCATION)   displayLocation();
+        if (DISPLAY_TIMESTAMP) displayTimestamp();
+        if (DISPLAY_SEVERITY) displaySeverity();
+        if (DISPLAY_LOCATION) displayLocation();
         m_osstream << MSG_TEXT_COLOR;
     }
 
@@ -253,6 +240,12 @@ private:
         m_osstream << getFormatLocationString() << " ";
         m_osstream << RESET;
     }
-};
+
+private:
+    Severity m_severity;
+    const char* m_fileName;
+    const int m_lineNum;
+    std::ostringstream m_osstream;
+}; // Class Logger
 
 } // namespace ZfLog
